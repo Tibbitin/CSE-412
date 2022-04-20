@@ -1,3 +1,5 @@
+CREATE DATABASE noir_games;
+
 CREATE TABLE consumer(
    consumer_id INTEGER NOT NULL,
    username VARCHAR(10),
@@ -236,90 +238,3 @@ INSERT INTO owns(consumer_id, game_id) VALUES(1, 7);
 INSERT INTO owns(consumer_id, game_id) VALUES(2, 6);
 INSERT INTO owns(consumer_id, game_id) VALUES(2, 5);
  
--- Queries data
-
---Get Actual Price Of Game (sales Included)
-
--- Get the base price of a game: 
-
-SELECT base_price FROM game WHERE game_id = [game_id];
-
--- Get the highest sale amount off: 
-
-SELECT percent_off FROM sale, participates_in WHERE sale.sale_id = participates_in.sale_id AND participates_in.game_id = [game_id] ORDER BY percent_off LIMIT 1;
-
--- Get All Games of a Genre, Sorted By Rating
-
-SELECT title FROM game, type_of WHERE type_of.genre_id = [genre_id] AND type_of.game_id = game.game_id ORDER BY rating;
-
--- Get a Consumer’s Password and consumer_id to compare for login
-
-SELECT consumer_id, consumer_password FROM consumer WHERE username = [username];
-
--- Get Creator of a Game
-
-SELECT development_studio.studio_name FROM created, development_studio, game WHERE development_studio.studio_id = created.studio_id AND game.game_id = created.game_id AND game.game_id = [game_id];
-
--- Get Rating of a Game based on game_id
-
-SELECT rating from game WHERE game_id = [game_id];
-
--- Get All games By A Development Studio
-
-SELECT game.title FROM game, created, development_studio WHERE created.game_id = game.game_id AND development_studio.studio_id = created.studio_id AND development_studio.studio_id = [studio_id];
-
--- Get All games Owned By A Consumer
-
-SELECT game.title FROM game, owns, consumer WHERE owns.game_id = game.game_id AND consumer.consumer_id = owns.consumer_id AND consumer.consumer_id = [consumer_id];
-
--- Deleting a Game Based On ID
-
-DELETE FROM game WHERE game_id = [game_id];
-
--- Updating a Game’s Rating
-
-UPDATE game SET rating = [new_rating] WHERE game_id = [game_id];
-
--- Updating a Development Studio’s Name
-UPDATE development_studio SET studio_name = [new_name] WHERE studio_id = [studio_id];
-
-
--- Demo Queries
-
--- Search for a user that doesn't exist
-SELECT * FROM consumer where consumer_id = 3;
- 
--- We Create the Consumer
-INSERT INTO consumer(consumer_id, username, consumer_password, wallet) VALUES(3, 'Robert', 'pleaseDontHack', 180.00);
- 
--- We create new games
-INSERT INTO game (game_id, title, release_date, base_price, rating)
-VALUES(160, 'Valorant: Please Help', '06/02/2023', 0.0, 5.0);
- 
-INSERT INTO game (game_id, title, release_date, base_price, rating)
-VALUES(139, 'Assassin’s Creed Valhalla', '04/04/2019', 0.0, 8.5);
- 
-INSERT INTO game (game_id, title, release_date, base_price, rating)
-VALUES(198, 'Genshin Impact Ultimate', '03/15/2022', 0.0, 7.0);
- 
--- User gets these games
-INSERT INTO owns(consumer_id, game_id) VALUES(3, 160);
-INSERT INTO owns(consumer_id, game_id) VALUES(3, 139);
-INSERT INTO owns(consumer_id, game_id) VALUES(3, 198);
- 
--- Updating the consumer’s password
-UPDATE consumer SET consumer_password= 'igotHacked' WHERE consumer_id = 3;
-UPDATE game SET rating = 7.5 WHERE game_id = 160;
-
--- Checking consumer's password again after it was updated
-SELECT consumer_id, consumer_password FROM consumer WHERE username = 'Robert';
-
--- Getting all the games the consumer owns
-SELECT game.title, game.rating FROM owns, game WHERE owns.consumer_id = [consumer_id] AND owns.game_id = game.game_id;
-
--- Delete some of the games
-DELETE FROM game WHERE game_id = 160;
-DELETE FROM game WHERE game_id = 139;
- 
--- Getting all the games the consumer owns
-SELECT game.title, game.rating FROM owns, game WHERE owns.consumer_id = 3 AND owns.game_id = game.game_id;
