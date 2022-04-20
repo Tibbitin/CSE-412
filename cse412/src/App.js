@@ -15,37 +15,13 @@ import logo from './assets/steamlogo.jpg';
 function App() {
   return (
     <div className="App">
-      <Navbar bg = "dark" variant = "dark" sticky ="top">
-        <Navbar.Brand>
-          <img src={logo}  height = "40" width = "40" alt = "Logo"/>
-          {' '}Steam
-        </Navbar.Brand>
-        <div className="navbarpages">
-        <Nav>
-          {/* <Link to="/">Home</Link>
-          <Link to="/Games">Games</Link>
-          <Link to="/Signin">Sign in</Link> */}
-          <Nav.Link href="/cse412/src/pages/Home.js">Home</Nav.Link>
-          <Nav.Link href="../src/pages/Games/Games.js">Games</Nav.Link>
-          <Nav.Link href="Login">Login</Nav.Link>
-        </Nav>
-        </div>
-        
-      </Navbar>
-      <div className = "content">
-        content.
-      </div>
-    </div>
+      <Routes>
+        <Route exact path="/signin" element = {<Signin/>}/>
+        <Route exact path="/games" element = {<Games/>}/>
+        <Route exact path="/" element = {<Home/>}/>
+      </Routes>            
 
-/* <Navbar/>
-<Route exact path="/" component ={Home}/>
-<Route exact path="/signin" compnent = {Signin}/>
-<Route exact path="/games" component = {Games}/>
-<Route exact path="/" component = {Home}/>
-<Route exact path="/signin" component = {Signin}/> */
-
-
-    
+    </div>  
   );
 }
 

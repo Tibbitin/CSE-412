@@ -1,14 +1,14 @@
 import './Signin.css';
 import 'bootstrap/dist/css/bootstrap.css'
-import Navbar from '../../components/navbarcomp/Navibar'
+import Navibar from '../../components/navbarcomp/Navibar'
 import {Button, Form, FormGroup, Label, Input} from 'reactstrap'
 import React from 'react'
 
 function Signin() {
   return (
     <div className="signinpage">
-      <Navbar/>
-      <Form classname = "signin">
+      <Navibar/>
+      <Form className = "signin">
         <h1 className='text-center'>Noir Games</h1>
         <h2 className='text-center'>Log in to your account!</h2>
         <FormGroup>
@@ -21,9 +21,7 @@ function Signin() {
         </FormGroup>
         <Button className='btn-lg btn-dark btn-block'>Log in</Button>
         <div className='text-center'>
-            <a href="/sign-up">Sign up</a>
-            <span className='p-2'>|</span>
-            <a href="/forgot-password">Forgot Password</a>
+            <a href="/register">Register</a>
         </div>
       </Form>
     </div>

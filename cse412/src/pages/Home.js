@@ -5,6 +5,7 @@ import Navibar from '../components/navbarcomp/Navibar'
 function Home() {
   return (
     <div className="Home">
+      <Navibar/>
       Home Page
     </div>
   );

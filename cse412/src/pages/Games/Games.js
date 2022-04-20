@@ -7,6 +7,7 @@ import Navibar from '../../components/navbarcomp/Navibar'
 function Games() {
   return (
     <div className="Games">
+      <Navibar/>
       Game page
     </div>
   );
