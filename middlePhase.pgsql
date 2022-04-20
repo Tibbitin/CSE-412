@@ -1,10 +1,10 @@
-CREATE DATABASE noir_games;
+--CREATE EXTENSION "uuid-oosp";
 
 CREATE TABLE consumer(
-   consumer_id INTEGER NOT NULL,
-   username VARCHAR(10),
-   consumer_password VARCHAR(20),
-   wallet DOUBLE PRECISION NOT NULL,
+   consumer_id uuid DEFAULT uuid_generate_v4(),
+   username VARCHAR(20) UNIQUE NOT NULL,
+   consumer_password VARCHAR(20) NOT NULL,
+   wallet DOUBLE PRECISION,
    PRIMARY KEY (consumer_id)
 );
  
@@ -50,10 +50,10 @@ CREATE TABLE vr_game(
 );
  
 CREATE TABLE owns(
-   consumer_id INTEGER NOT NULL,
+   username VARCHAR(20),
    game_id INTEGER NOT NULL,
-   PRIMARY KEY(consumer_id, game_id),
-   FOREIGN KEY(consumer_id) REFERENCES consumer(consumer_id) ON DELETE CASCADE,
+   PRIMARY KEY(username, game_id),
+   FOREIGN KEY(username) REFERENCES consumer(username) ON DELETE CASCADE,
    FOREIGN KEY(game_id) REFERENCES game(game_id) ON DELETE CASCADE
 );
  
@@ -224,17 +224,12 @@ INSERT INTO type_of(game_id, genre_id) VALUES(15, 0);
 INSERT INTO type_of(game_id, genre_id) VALUES(16, 4);
 
 -- Consumer Entity
-INSERT INTO consumer(consumer_id, username, consumer_password, wallet) VALUES(0, 'Thomas', 'securePassword384', 18.00);
-INSERT INTO consumer(consumer_id, username, consumer_password, wallet) VALUES(1, 'Franklin', 'p@ssw0rd!!', 4.23);
-INSERT INTO consumer(consumer_id, username, consumer_password, wallet) VALUES(2, 'Harold', 'us3rn@m3!', 10.18);
+INSERT INTO consumer(username, consumer_password, wallet) VALUES('Thomas', 'securePassword384', 18.00);
+INSERT INTO consumer(username, consumer_password, wallet) VALUES('Franklin', 'p@ssw0rd!!', 4.23);
+INSERT INTO consumer(username, consumer_password, wallet) VALUES('Harold', 'us3rn@m3!', 10.18);
  
 -- Owns Relationship
-INSERT INTO owns(consumer_id, game_id) VALUES(0, 4);
-INSERT INTO owns(consumer_id, game_id) VALUES(0, 2);
-INSERT INTO owns(consumer_id, game_id) VALUES(0, 8);
-INSERT INTO owns(consumer_id, game_id) VALUES(1, 12);
-INSERT INTO owns(consumer_id, game_id) VALUES(1, 3);
-INSERT INTO owns(consumer_id, game_id) VALUES(1, 7);
-INSERT INTO owns(consumer_id, game_id) VALUES(2, 6);
-INSERT INTO owns(consumer_id, game_id) VALUES(2, 5);
+INSERT INTO owns(username, game_id) VALUES('Thomas', 7);
+INSERT INTO owns(username, game_id) VALUES('Franklin', 6);
+INSERT INTO owns(username, game_id) VALUES('Harold', 5);
  

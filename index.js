@@ -8,6 +8,11 @@ app.use(cors());
 app.use(express.json());
 
 //ROUTES//
+//register and login routes
+app.use("/auth", require("./jwtAuth"));
+
+
+
 //get a specific consumer
 app.get("/consumer/:id", async(req, res) => {
     try {
