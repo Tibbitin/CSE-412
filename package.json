@@ -9,10 +9,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
+    "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "express": "^4.17.3",
     "pg": "^8.7.3",
-    "react-animated-text-builders": "^1.1.0",
+    "salt": "^0.5.5"
     "react-router-dom": "^6.3.0"
   }
 }
