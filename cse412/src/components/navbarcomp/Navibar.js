@@ -11,18 +11,18 @@ const Navibar = () => {
 
     const MenuItems = [
         {
-            title: 'Home',
-            url: '/',
+            title: 'Store',
+            url: '/home',
             cName: 'nav-links'
         },
         {
-            title: 'Games',
+            title: 'My Games',
             url: '/games',
             cName: 'nav-links'
         },
         {
             title: 'Sign In',
-            url: '/signin',
+            url: '/',
             cName: 'nav-links'
         }
 
