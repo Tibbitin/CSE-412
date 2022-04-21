@@ -8,7 +8,7 @@ function Games() {
   return (
     <div className="Games">
       <Navibar/>
-      Dashboard for user's games
+      Game page
     </div>
   );
 }
