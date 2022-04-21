@@ -1,0 +1,18 @@
+.storediv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.Home input {
+    margin-top: 30px;
+    width: 300px;
+    height: 40px;
+    font-size: 20px;
+    padding-left: 10px;
+}
+
+.button{
+    padding-top: auto;
+}
