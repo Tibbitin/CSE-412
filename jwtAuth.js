@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const { user } = require("pg/lib/defaults");
 const pool = require("./db")
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 
 //registering
 router.post("/register", async(req, res) => {
@@ -23,11 +23,11 @@ router.post("/register", async(req, res) => {
         const bcryptPassword = await bcrypt.hash(consumer_password, salt);
 
         //4. enter the new user inside our database
-        const newConsumer = await pool.query("INSERT INTO (username, consumer_password, wallet) VALUES ($1, $2, $3) RETURNING *", [username, bcryptPassword, 0.0]);
+        const newConsumer = await pool.query("INSERT INTO consumer (username, consumer_password, wallet) VALUES ($1, $2, $3) RETURNING *", [username, bcryptPassword, 0.0]);
         res.json(newConsumer.rows[0]);
 
         //5. generating our jwt token
-
+        
 
     } catch (error) {
         console.error(error.message);
