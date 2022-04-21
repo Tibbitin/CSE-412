@@ -1,34 +1,31 @@
-import './Signin.css';
+import './Register.css';
 import 'bootstrap/dist/css/bootstrap.css'
 import Navibar from '../../components/navbarcomp/Navibar'
 import {Button, Form, FormGroup, Label, Input} from 'reactstrap'
 import React from 'react'
 
-function Signin() {
+function Register() {
   return (
-    <div className="signinpage">
+    <div className="registerpage">
       <Navibar/>
-      <Form className = "signin">
+      <Form className = "register">
         <h1 className='text-center'>NOIR Games</h1>
-        <h2 className='text-center'>Log in to your account!</h2>
-        <FormGroup>
-            <Label>Username</Label>
+        <h2 className='text-center'>Create your account!</h2>
+        <FormGroup className='form1'>
+            <Label>Pick a username</Label>
             <Input type = "username" placeholder='Username'/>
         </FormGroup>
-        <FormGroup>
-            <Label>Password</Label>
+        <FormGroup className='form2'>
+            <Label>Pick a password</Label>
             <Input type = "password" placeholder='Password'/>
         </FormGroup>
         <Button className='btn-lg btn-dark btn-block' onClick={(e) => {
       e.preventDefault();
       window.location.href='/games';
-      }}>Log in</Button>
-        <div className='text-center'>
-            <a href="/register">Register</a>
-        </div>
+      }}>Register</Button>
       </Form>
     </div>
   );
 }
 
-export default Signin;
+export default Register;
