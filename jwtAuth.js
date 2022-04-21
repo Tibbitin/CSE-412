@@ -3,9 +3,10 @@ const { user } = require("pg/lib/defaults");
 const pool = require("./db")
 const bcrypt = require("bcrypt");
 const jwtGenerator = require("./jwtGenerator");
+const validInfo = require("./validInfo");
 
 //registering
-router.post("/register", async(req, res) => {
+router.post("/register", validInfo, async(req, res) => {
     try {
         
         //1. destructure the req.body (name, email, password)
@@ -37,7 +38,7 @@ router.post("/register", async(req, res) => {
 })
 
 //login
-router.post("/login", async(req, res) => {
+router.post("/login", validInfo, async(req, res) => {
     try {
         //1. destructure the req.body
         const{ username, consumer_password } = req.body;
