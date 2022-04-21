@@ -9,7 +9,7 @@ function Signin() {
     <div className="signinpage">
       <Navibar/>
       <Form className = "signin">
-        <h1 className='text-center'>NOIR Games</h1>
+        <h1 className='text-center'>Noir Games</h1>
         <h2 className='text-center'>Log in to your account!</h2>
         <FormGroup>
             <Label>Username</Label>
@@ -19,10 +19,7 @@ function Signin() {
             <Label>Password</Label>
             <Input type = "password" placeholder='Password'/>
         </FormGroup>
-        <Button className='btn-lg btn-dark btn-block' onClick={(e) => {
-      e.preventDefault();
-      window.location.href='/games';
-      }}>Log in</Button>
+        <Button className='btn-lg btn-dark btn-block'>Log in</Button>
         <div className='text-center'>
             <a href="/register">Register</a>
         </div>
