@@ -11,8 +11,6 @@ app.use(express.json());
 //register and login routes
 app.use("/auth", require("./jwtAuth"));
 
-
-
 //get a specific consumer
 app.get("/consumer/:id", async(req, res) => {
     try {
@@ -159,7 +157,8 @@ app.get("/games/rating/:rating", async (req, res) => {
 // })
 
 
-
+//dashboard route
+app.use("/dashboard", require("./userDashboard"));
 
 app.listen(5000, () => {
     console.log("server has started on port 5000")
