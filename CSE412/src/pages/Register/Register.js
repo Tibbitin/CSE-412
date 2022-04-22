@@ -21,6 +21,19 @@ function Register() {
         </FormGroup>
         <Button className='btn-lg btn-dark btn-block' onClick={(e) => {
       e.preventDefault();
+        try{
+          const body = {username, consumer_password};
+          const response = await fetch("http://localhost:5000/auth/register", {
+            method: "POST", 
+            headers: { "Content-Type": "application/json"}, 
+            body: JSON.stringify(body)
+          });
+          const parseResponse = await response.json();
+          console.log(parseResponse);
+        }
+        catch (error) {
+          console.error(error.message)
+        }
       window.location.href='/games';
       }}>Register</Button>
       </Form>

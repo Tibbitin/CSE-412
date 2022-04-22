@@ -4,6 +4,7 @@ const pool = require("./db")
 const bcrypt = require("bcrypt");
 const jwtGenerator = require("./jwtGenerator");
 const validInfo = require("./validInfo");
+const authorization = require("./authorization");
 
 //registering
 router.post("/register", validInfo, async(req, res) => {
@@ -51,6 +52,11 @@ router.post("/login", validInfo, async(req, res) => {
         
         //3. check if incoming password is the same as the database password
         const validPassword = await bcrypt.compare(consumer_password, consumer.rows[0].consumer_password);
+        console.log(consumer_password);
+        console.log(consumer.rows[0].consumer_password);
+        console.log(validPassword);
+    
+
         if(!validPassword) {
             return res.status(401).json("Username or Password is incorrect");
         }
@@ -59,6 +65,16 @@ router.post("/login", validInfo, async(req, res) => {
         const token = jwtGenerator(consumer.rows[0].consumer_id);
         res.json({ token });
 
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Server Error");
+    }
+})
+
+//constantly verifying
+router.get("/is-verify", authorization, async (req, res) => {
+    try {
+        res.json(true);
     } catch (error) {
         console.error(error.message);
         res.status(500).send("Server Error");
