@@ -37,7 +37,7 @@ function Signin() {
   return (
     <div className="signinpage">
       <Navibar/>
-      <Form>
+      <Form onSubmit={onSubmitButton}>
         <h1 className='text-center'>NOIR Games</h1>
         <h2 className='text-center'>Log in to your account!</h2>
         <FormGroup>
@@ -48,9 +48,9 @@ function Signin() {
             <Label>Password</Label>
             <Input type = "password" value = {consumer_password} onChange = {e => setConsumer_Password(e.target.value)} placeholder='Password'/>
         </FormGroup>
-        <button onClick = {onSubmitButton} type="submit">Submit</button>
+        <button onClick={(e) => { e.preventDefault(); window.location.href='/games'; }} type="submit">Submit</button>
         <div className='text-center'>
-            <a href="/register" onClick={(e) => { e.preventDefault(); window.location.href='/games'; }}>Register</a>
+            <a href="/register" onClick={(e) => { e.preventDefault(); window.location.href='/register'; }}>Register</a>
         </div>
       </Form>
     </div>
