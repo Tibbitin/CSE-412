@@ -18,8 +18,8 @@ function Register() {
       });
       const parseResponse = await response.json();
       console.log(parseResponse);
-  
-      // check the jwt token
+      
+      localStorage.setItem('token', parseResponse.token);
     }
     catch (error) {
       console.error(error.message)

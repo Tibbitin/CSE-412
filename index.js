@@ -47,10 +47,10 @@ app.get("/consumer/:id/library", async(req, res) => {
 // })
 
 //get all games (opening the front page of store where all games are listed)
-app.get("/games", async(req, res) => {
+app.get("/home", async(req, res) => {
     try {
-        const allGames = await pool.query("SELECT * FROM game")
-        res.json(allGames.rows)
+        const allGames = await pool.query("SELECT * FROM game");
+        res.json(allGames.rows);
     } catch (error) {
         console.error(error.message)
     }
@@ -158,7 +158,7 @@ app.get("/games/rating/:rating", async (req, res) => {
 
 
 //dashboard route
-app.use("/dashboard", require("./userDashboard"));
+app.use("/games", require("./userDashboard"));
 
 app.listen(5000, () => {
     console.log("server has started on port 5000")

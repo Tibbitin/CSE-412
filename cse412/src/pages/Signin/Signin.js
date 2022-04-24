@@ -4,10 +4,11 @@ import Navibar from '../../components/navbarcomp/Navibar'
 import {Button, Form, FormGroup, Label, Input} from 'reactstrap'
 import React, {Fragment, useState} from 'react'
 
-function Signin() {
+const Signin = (/*{setAuth}*/) => {
   const [username, setUsername] = useState("");
   const [consumer_password, setConsumer_Password] = useState("");
   const onSubmitButton = async(e) => {
+    
     e.preventDefault();
     try{
       const body = {username, consumer_password};
@@ -18,22 +19,18 @@ function Signin() {
       });
       const parseResponse = await response.json();
       console.log(parseResponse);
-  
       // check the jwt token
-      // if(parseResponse.jwtToken)
-      // {
-      //   localStorage.setItem("token", parseResponse.jwtToken);
-      //   setAuth(true);
-      // }
-      // else
-      // {
-      //   setAuth(false);
-      // }
+      if(parseResponse.token)
+      {
+        localStorage.setItem('token', parseResponse.token);
+        window.location.href='/games';
+      }
     }
     catch (error) {
       console.error(error.message)
     }
-  }
+  };
+
   return (
     <div className="signinpage">
       <Navibar/>
@@ -48,13 +45,14 @@ function Signin() {
             <Label>Password</Label>
             <Input type = "password" value = {consumer_password} onChange = {e => setConsumer_Password(e.target.value)} placeholder='Password'/>
         </FormGroup>
-        <button onClick={(e) => { e.preventDefault(); window.location.href='/games'; }} type="submit">Submit</button>
+        {/* <button onClick={(e) => { e.preventDefault(); window.location.href='/games'; }} type="submit">Submit</button> */}
+        <button onClick={onSubmitButton}>Submit</button>
         <div className='text-center'>
             <a href="/register" onClick={(e) => { e.preventDefault(); window.location.href='/register'; }}>Register</a>
         </div>
       </Form>
     </div>
   );
-}
+};
 
 export default Signin;
