@@ -46,6 +46,7 @@ app.get("/consumer/:id/library", async(req, res) => {
 //     }
 // })
 
+
 //get all games (opening the front page of store where all games are listed)
 app.get("/home", async(req, res) => {
     try {
@@ -56,11 +57,23 @@ app.get("/home", async(req, res) => {
     }
 })
 
-//get a specific game (open to a specific game web page)
-app.get("/home/:title", async (req, res) => {
+//Searching route
+app.get("/search", async (req, res) => {
     try {
-        const { title } = req.params;
-        const game = await pool.query("SELECT * FROM game WHERE title = $1", [title]);
+        const { title } = req.query;
+        const game_title = await pool.query("SELECT * FROM game WHERE title || ' ' ILIKE $1", ['%' + title + '%']);
+
+        res.json(game_title.rows)
+    } catch (error) {
+        console.error(error.message);
+    }
+})
+
+//get a specific game (open to a specific game web page)
+app.get("/games/:id", async (req, res) => {
+    try {
+        const { id } = req.params;
+        const game = await pool.query("SELECT * FROM game WHERE game_id = $1", [id]);
         res.json(game.rows[0]);
     } catch (error) {
         console.error(error.message)
@@ -128,6 +141,7 @@ app.get("/games/rating/:rating", async (req, res) => {
         const { rating } = req.params;
         const game = await pool.query("SELECT title FROM game WHERE rating >= $1", [rating]);
         res.json(game.rows);
+        
     } catch (error) {
         console.error(error.message)
     }
