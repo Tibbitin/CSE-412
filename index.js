@@ -57,10 +57,10 @@ app.get("/home", async(req, res) => {
 })
 
 //get a specific game (open to a specific game web page)
-app.get("/games/:id", async (req, res) => {
+app.get("/home/:title", async (req, res) => {
     try {
-        const { id } = req.params;
-        const game = await pool.query("SELECT * FROM game WHERE game_id = $1", [id]);
+        const { title } = req.params;
+        const game = await pool.query("SELECT * FROM game WHERE title = $1", [title]);
         res.json(game.rows[0]);
     } catch (error) {
         console.error(error.message)
