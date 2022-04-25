@@ -78,6 +78,7 @@ The store page has all the games available in the store. There is a search bar a
 
 ### Nav bar:
 Clicking the “Store” button takes you to the store page. Clicking the “My Games” button takes you to the dashboard. Clicking the “Sign In” page takes you to the login page.
+
 ![3](https://user-images.githubusercontent.com/78890952/165027244-8ffbf2be-7af9-4cba-8f0d-874e9ff92ee6.PNG)
 
 
