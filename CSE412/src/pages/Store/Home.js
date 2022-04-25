@@ -7,12 +7,13 @@ import { ListGroupItemHeading } from 'reactstrap';
 
 function Home() {
   const [title, setTitle] = useState("");
+  const [rating, setRating] = useState("");
   const [games, setGames] = useState([]);
 
   async function onEnterForm(e) {
     try {
       e.preventDefault();
-      const response = await fetch('http://localhost:5000/search/?title=' + title);
+      const response = await fetch('http://localhost:5000/search/?title=' + title + "&rating=" + rating);
       const parseResponse = await response.json();
       
       setGames(parseResponse);
@@ -48,8 +49,14 @@ function Home() {
       <Navibar/>
       <div className = "storediv">
         <form onSubmit = {onEnterForm}>
-          <input type = "text" onChange={e => setTitle(e.target.value)} placeholder="Search..." />
-          <button containerStyle = {{padding: 90, margin: 400}} className = "button" type="submit">Enter</button>
+          <label style={{padding: 10 + 'px'}}>Title:</label>
+          <input name="titleVal" type = "text" onChange={e => setTitle(e.target.value)} placeholder="Search..." />
+          <br></br>
+          <label style={{padding: 10 + 'px'}}>Minimum Rating:</label>
+          <input type="number" required step=".1" name="ratingVal" id="ratingVal" onChange={e => setRating(e.target.value)}></input>
+          <br></br>
+          <br></br>
+          <button style={{left: 10 + 'px'}} className = "button" type="submit">Enter</button>
         </form>
         <table className="table my-5">
           <thead>

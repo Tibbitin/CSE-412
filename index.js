@@ -60,9 +60,9 @@ app.get("/home", async(req, res) => {
 //Searching route
 app.get("/search", async (req, res) => {
     try {
-        const { title } = req.query;
-        const game_title = await pool.query("SELECT * FROM game WHERE title || ' ' ILIKE $1", ['%' + title + '%']);
-
+        const { title, rating } = req.query;
+        console.log(rating);
+        const game_title = await pool.query("SELECT * FROM game WHERE title || ' ' ILIKE $1 AND rating >= " + rating, ['%' + title + '%']);
         res.json(game_title.rows)
     } catch (error) {
         console.error(error.message);
