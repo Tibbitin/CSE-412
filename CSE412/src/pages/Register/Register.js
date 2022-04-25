@@ -18,9 +18,12 @@ function Register() {
       });
       const parseResponse = await response.json();
       console.log(parseResponse);
-      
-      localStorage.setItem('token', parseResponse.token);
-    }
+  
+      if(parseResponse.token)
+      {
+        localStorage.setItem('token', parseResponse.token);
+        window.location.href='/games';
+      }    }
     catch (error) {
       console.error(error.message)
     }
@@ -39,7 +42,7 @@ function Register() {
             <Label>Pick a password</Label>
             <Input type = "password" value = {consumer_password} onChange = {e => setConsumer_Password(e.target.value)} placeholder='Password'/>
         </FormGroup>
-        <Button className='btn-lg btn-dark btn-block'onClick={(e) => { e.preventDefault(); window.location.href='/games';}}>Register</Button>
+        <Button onSubmit={onSubmitButton} className='btn-lg btn-dark btn-block'>Register</Button>
       </Form>
     </div>
   );
