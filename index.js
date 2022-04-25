@@ -64,12 +64,16 @@ app.get("/search", async (req, res) => {
         console.log(rating);
         var game_title;
         if(genre == "All") {
-            game_title = await pool.query("SELECT * FROM game WHERE title || ' ' ILIKE $1 AND rating >= " + rating, ['%' + title + '%']);
+            game_title = await pool.query("SELECT * FROM game WHERE title || ' ' ILIKE $1 AND rating >= " + rating + "AND base_price >= " + price, ['%' + title + '%']);
         }
         else {
             console.log(genre);
-            game_title = await pool.query("SELECT * FROM game, genre, type_of WHERE title || ' ' ILIKE $1 AND rating >= " + rating + "AND genre.genre_id = type_of.genre_id AND game.game_id = type_of.game_id AND genre_name = '" + genre + "'", ['%' + title + '%']);
+            game_title = await pool.query("SELECT * FROM game, genre, type_of WHERE title || ' ' ILIKE $1 AND rating >= " + rating + "AND base_price >= " + price + "AND genre.genre_id = type_of.genre_id AND game.game_id = type_of.game_id AND genre_name = '" + genre + "'", ['%' + title + '%']);
         }
+
+        // const { title, rating, price } = req.query;
+        // console.log(price);
+        // const game_title = await pool.query("SELECT * FROM game WHERE title || ' ' ILIKE $1 AND rating >= " + rating + "AND base_price >= " + price, ['%' + title + '%']);
         res.json(game_title.rows)
     } catch (error) {
         console.error(error.message);
