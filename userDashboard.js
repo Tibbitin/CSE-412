@@ -8,7 +8,7 @@ module.exports = router;
 router.get("/", authorization, async(req, res) => {
     try {
         //req.user has the payload
-        const consumer = await pool.query("SELECT username, game.title FROM game, owns, consumer WHERE owns.game_id = game.game_id AND consumer.consumer_id = owns.consumer_id AND consumer.consumer_id = $1", [req.user]);
+        const consumer = await pool.query("SELECT * FROM game, owns, consumer WHERE owns.game_id = game.game_id AND consumer.consumer_id = owns.consumer_id AND consumer.consumer_id = $1", [req.user]);
         res.json(consumer.rows);
     } catch (error) {
         console.error(error.message);
