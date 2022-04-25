@@ -23,7 +23,8 @@ function Register() {
       {
         localStorage.setItem('token', parseResponse.token);
         window.location.href='/games';
-      }    }
+      }    
+    }
     catch (error) {
       console.error(error.message)
     }
