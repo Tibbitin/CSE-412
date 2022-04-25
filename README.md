@@ -61,3 +61,21 @@ To clone the repository, run the following command in your console/terminal wind
 
 
 # Walkthrough and Navigation
+### Log in:
+The user is able to view the landing screen once the setup is complete and the application has been run. The landing page is the sign in page, where the user must enter their username and password in order to log in to their account. Pressing the submit button with a valid username and password takes you to the dashboard, which is the “My Games” page, that displays all the games the user has.
+
+
+### Register:
+If the user does not have an account, they are able to click the register link in order to create an account. To create an account, the user must enter a username and a password and click the Register button. This will create their account and take them to the dashboard, which is the “My Games” page which will be blank since they don’t have any games yet.
+
+### Dashboard:
+On the dashboard, the user can view all games that are in their wishlist. 
+
+### Store:
+The store page has all the games available in the store. There is a search bar at the top of the page that allows you to search for a specific game based on the title. In order to filter the list of games based on genre or rating, you can use the buttons on the side and the games that match the criteria will remain on the page. In order to add a game to your wishlist, you simply have to press the “+” button beside the game, which will add a copy of it to the “My Games” page. 
+
+### Nav bar:
+Clicking the “Store” button takes you to the store page. Clicking the “My Games” button takes you to the dashboard. Clicking the “Sign In” page takes you to the login page.
+
+### Stopping the application:
+In order to end the application, simply close the tab on your browser.
