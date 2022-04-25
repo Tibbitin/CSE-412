@@ -63,11 +63,13 @@ To clone the repository, run the following command in your console/terminal wind
 # Walkthrough and Navigation
 ### Log in:
 The user is able to view the landing screen once the setup is complete and the application has been run. The landing page is the sign in page, where the user must enter their username and password in order to log in to their account. Pressing the submit button with a valid username and password takes you to the dashboard, which is the “My Games” page, that displays all the games the user has.
+
 ![1](https://user-images.githubusercontent.com/78890952/165027133-c27813f6-0d9d-4143-9272-042f34f7349b.PNG)
 
 
 ### Register:
 If the user does not have an account, they are able to click the register link in order to create an account. To create an account, the user must enter a username and a password and click the Register button. This will create their account and take them to the dashboard, which is the “My Games” page which will be blank since they don’t have any games yet.
+
 ![2](https://user-images.githubusercontent.com/78890952/165027233-5f47f440-313b-40a0-9ca2-54cd7397b3f9.PNG)
 
 ### Dashboard:
