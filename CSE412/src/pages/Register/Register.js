@@ -28,7 +28,7 @@ function Register() {
   return (
     <div className="registerpage">
       <Navibar/>
-      <Form onSubmit = {onSubmitButton}>
+      <Form onSubmit = {onSubmitButton} className = "register">
         <h1 className='text-center'>NOIR Games</h1>
         <h2 className='text-center'>Create your account!</h2>
         <FormGroup className='form1'>
