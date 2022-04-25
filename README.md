@@ -1,1 +1,1 @@
-# User Manuel
+# User Manual
