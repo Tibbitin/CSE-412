@@ -47,12 +47,11 @@ function Home() {
     <div className="Home">
       <Navibar/>
       <div className = "storediv">
-        <form className="d-flex" onSubmit = {onEnterForm}>
+        <form onSubmit = {onEnterForm}>
           <input type = "text" onChange={e => setTitle(e.target.value)} placeholder="Search..." />
-          <button className = "button" type="submit">Enter</button>
+          <button containerStyle = {{padding: 90, margin: 400}} className = "button" type="submit">Enter</button>
         </form>
       </div>
-      Store with display of all games
     </div>
   );
 }

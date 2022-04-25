@@ -19,7 +19,6 @@ const Signin = (/*{setAuth}*/) => {
       });
       const parseResponse = await response.json();
       console.log(parseResponse);
-      // check the jwt token
       if(parseResponse.token)
       {
         localStorage.setItem('token', parseResponse.token);
@@ -34,7 +33,7 @@ const Signin = (/*{setAuth}*/) => {
   return (
     <div className="signinpage">
       <Navibar/>
-      <Form onSubmit={onSubmitButton}>
+      <Form onSubmit={onSubmitButton} className = "signin">
         <h1 className='text-center'>NOIR Games</h1>
         <h2 className='text-center'>Log in to your account!</h2>
         <FormGroup>
@@ -46,7 +45,7 @@ const Signin = (/*{setAuth}*/) => {
             <Input type = "password" value = {consumer_password} onChange = {e => setConsumer_Password(e.target.value)} placeholder='Password'/>
         </FormGroup>
         {/* <button onClick={(e) => { e.preventDefault(); window.location.href='/games'; }} type="submit">Submit</button> */}
-        <button onClick={onSubmitButton}>Submit</button>
+        <Button onClick={onSubmitButton} className='btn-lg btn-dark btn-block'>Submit</Button>
         <div className='text-center'>
             <a href="/register" onClick={(e) => { e.preventDefault(); window.location.href='/register'; }}>Register</a>
         </div>
