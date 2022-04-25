@@ -3,7 +3,6 @@ import 'bootstrap/dist/css/bootstrap.css'
 import Navibar from '../../components/navbarcomp/Navibar'
 import {useState} from 'react'
 import './Home.css';
-import { ListGroupItemHeading } from 'reactstrap';
 
 function Home() {
   const [title, setTitle] = useState("");

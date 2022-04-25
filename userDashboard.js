@@ -1,7 +1,6 @@
-const router = require("express").Router();
-// const { user } = require("pg/lib/defaults");
-const pool = require("./db")
 const authorization = require("./authorization");
+const pool = require("./db")
+const router = require("express").Router();
 
 module.exports = router;
 
@@ -12,6 +11,6 @@ router.get("/", authorization, async(req, res) => {
         res.json(consumer.rows);
     } catch (error) {
         console.error(error.message);
-        res.status(500).json("Server Error");
+        res.status(500).json("There was an issue accessing the server");
     }
 })
