@@ -11,8 +11,6 @@ app.use(express.json());
 //register and login routes
 app.use("/auth", require("./jwtAuth"));
 
-
-
 //get a specific consumer
 app.get("/consumer/:id", async(req, res) => {
     try {
@@ -48,13 +46,26 @@ app.get("/consumer/:id/library", async(req, res) => {
 //     }
 // })
 
+
 //get all games (opening the front page of store where all games are listed)
-app.get("/games", async(req, res) => {
+app.get("/home", async(req, res) => {
     try {
-        const allGames = await pool.query("SELECT * FROM game")
-        res.json(allGames.rows)
+        const allGames = await pool.query("SELECT * FROM game");
+        res.json(allGames.rows);
     } catch (error) {
         console.error(error.message)
+    }
+})
+
+//Searching route
+app.get("/search", async (req, res) => {
+    try {
+        const { title } = req.query;
+        const game_title = await pool.query("SELECT * FROM game WHERE title || ' ' ILIKE $1", ['%' + title + '%']);
+
+        res.json(game_title.rows)
+    } catch (error) {
+        console.error(error.message);
     }
 })
 
@@ -130,6 +141,7 @@ app.get("/games/rating/:rating", async (req, res) => {
         const { rating } = req.params;
         const game = await pool.query("SELECT title FROM game WHERE rating >= $1", [rating]);
         res.json(game.rows);
+        
     } catch (error) {
         console.error(error.message)
     }
@@ -159,7 +171,8 @@ app.get("/games/rating/:rating", async (req, res) => {
 // })
 
 
-
+//dashboard route
+app.use("/games", require("./userDashboard"));
 
 app.listen(5000, () => {
     console.log("server has started on port 5000")
