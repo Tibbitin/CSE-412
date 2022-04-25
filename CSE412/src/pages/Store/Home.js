@@ -10,11 +10,13 @@ function Home() {
   const [rating, setRating] = useState("");
   const [price, setPrice] = useState("");
   const [games, setGames] = useState([]);
+  const [genres, setGenres] = useState([]);
+  const [genre, setGenre] = useState("All");
 
   async function onEnterForm(e) {
     try {
       e.preventDefault();
-      const response = await fetch('http://localhost:5000/search/?title=' + title + "&rating=" + rating + "&price=" + price);
+      const response = await fetch('http://localhost:5000/search/?title=' + title + "&rating=" + rating + "&genre=" + genre + "&price=" + price);
       const parseResponse = await response.json();
       
       setGames(parseResponse);
@@ -40,9 +42,31 @@ function Home() {
       console.error(error.message);
     }
   }
+
+  async function getAllGenres() {
+    try {
+      const response = await fetch("http://localhost:5000/genres", {
+        method: "GET",
+        headers: { "Content-Type": "application/json"},
+        mode: "cors"
+      });
+
+      const parseResponse = await response.json();
+      console.log(parseResponse);
+
+      setGenres(parseResponse);
+
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
   
   useEffect(() => {
     getAllGames()
+  }, []);
+
+  useEffect(() => {
+    getAllGenres()
   }, []);
 
   return (
@@ -56,8 +80,14 @@ function Home() {
           <input type="number" required step=".1" name="ratingVal" id="ratingVal" onChange={e => setRating(e.target.value)}></input>          
           <label>Minimum Price:</label>
           <input type="number" required step="5" name="priceVal" id="priceVal" onChange={e => setPrice(e.target.value)}></input>
-           <br>
-           </br>
+          <select name="genreVal" size={genres.size + 1} onChange={e => setGenre(e.target.value)}>  
+              <option value="All">All</option>
+            {genres.map(genre => (
+              <option value={genre.genre_name}>{genre.genre_name}</option>
+            ))}
+          </select>
+          <br>
+          </br>
           <Button style = {{marginTop: 10 }}className='btn-md btn-dark btn-block' type="submit">Enter</Button>
         </form>
         <table className="table my-5">

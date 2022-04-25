@@ -60,9 +60,16 @@ app.get("/home", async(req, res) => {
 //Searching route
 app.get("/search", async (req, res) => {
     try {
-        const { title, rating } = req.query;
+        const { title, rating, genre} = req.query;
         console.log(rating);
-        const game_title = await pool.query("SELECT * FROM game WHERE title || ' ' ILIKE $1 AND rating >= " + rating, ['%' + title + '%']);
+        var game_title;
+        if(genre == "All") {
+            game_title = await pool.query("SELECT * FROM game WHERE title || ' ' ILIKE $1 AND rating >= " + rating, ['%' + title + '%']);
+        }
+        else {
+            console.log(genre);
+            game_title = await pool.query("SELECT * FROM game, genre, type_of WHERE title || ' ' ILIKE $1 AND rating >= " + rating + "AND genre.genre_id = type_of.genre_id AND game.game_id = type_of.game_id AND genre_name = '" + genre + "'", ['%' + title + '%']);
+        }
         res.json(game_title.rows)
     } catch (error) {
         console.error(error.message);
@@ -88,6 +95,16 @@ app.get("/games/sales/:sale_id", async (req, res) => {
         res.json(games_on_sale.rows);
     } catch (error) {
         console.error(error.message);
+    }
+})
+
+//send the list of genre names
+app.get("/genres", async (req, res) => {
+    try {
+        const genre = await pool.query("SELECT genre_name FROM genre");
+        res.json(genre.rows);
+    } catch (error) {
+        console.error(error.message)
     }
 })
 
