@@ -2,7 +2,7 @@ import React, {Fragment, useEffect} from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import Navibar from '../../components/navbarcomp/Navibar'
 import {useState} from 'react'
-import {Button, Form, FormGroup, Label, Input} from 'reactstrap'
+import {Button, Form, Row, Col} from 'reactstrap'
 import './Home.css';
 
 function Home() {
@@ -89,23 +89,33 @@ function Home() {
     <div className="Home">
       <Navibar/>
       <div className = "storediv">
-        <form onSubmit = {onEnterForm} className = "filterform">
-          <label>Title: {" "}</label>
+        <Form onSubmit = {onEnterForm} className = "filterform" style = {{marginTop: 25 }}>
+          <Row>
+            <Col xs = "auto">
+            <label>Title: {" "}</label>
           <input name="titleVal" type = "text" onChange={e => setTitle(e.target.value)} placeholder="Search..." />
+            </Col>
+          <Col xs = "auto">
           <label>Minimum Rating:</label>
-          <input type="number" step="0.5" name="ratingVal" id="ratingVal" onChange={e => setRating(e.target.value) } placeholder="0"></input>          
+          <input type="number" step="0.5" name="ratingVal" id="ratingVal" onChange={e => setRating(e.target.value) } placeholder="0"></input> 
+          </Col>
+          <Col xs = "auto">
           <label>Minimum Price:</label>
           <input type="number" step="5" name="priceVal" id="priceVal" onChange={e => setPrice(e.target.value)} placeholder="0"></input>
-          <select name="genreVal" size={genres.size + 1} onChange={e => setGenre(e.target.value)}>  
+          </Col>       
+          <Col xs = "auto">
+          <select style = {{marginTop: 25 }} name="genreVal" size={genres.size + 1} onChange={e => setGenre(e.target.value)}>  
               <option value="All">All</option>
             {genres.map(genre => (
               <option value={genre.genre_name}>{genre.genre_name}</option>
             ))}
           </select>
-          <br>
-          </br>
-          <Button style = {{marginTop: 10 }}className='btn-md btn-dark btn-block' type="submit">Enter</Button>
-        </form>
+          </Col>
+          <Col xs = {8}>
+          <Button style = {{marginTop: 25 }}className='btn-md btn-dark btn-block' type="submit">Enter</Button>
+          </Col>
+          </Row>
+        </Form>
         <table className="table my-5">
           <thead>
             <tr>
