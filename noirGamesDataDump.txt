@@ -1,0 +1,544 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.2
+-- Dumped by pg_dump version 14.2
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+--
+-- Name: uuid-ossp; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp" WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION "uuid-ossp"; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UUIDs)';
+
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: consumer; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.consumer (
+    consumer_id uuid DEFAULT public.uuid_generate_v4() NOT NULL,
+    username character varying(20) NOT NULL,
+    consumer_password character varying(256) NOT NULL,
+    wallet double precision
+);
+
+
+ALTER TABLE public.consumer OWNER TO postgres;
+
+--
+-- Name: created; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.created (
+    game_id integer NOT NULL,
+    studio_id integer NOT NULL
+);
+
+
+ALTER TABLE public.created OWNER TO postgres;
+
+--
+-- Name: development_studio; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.development_studio (
+    studio_id integer NOT NULL,
+    studio_name character varying(30)
+);
+
+
+ALTER TABLE public.development_studio OWNER TO postgres;
+
+--
+-- Name: game; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.game (
+    game_id integer NOT NULL,
+    title character varying(30),
+    rating double precision,
+    base_price double precision,
+    release_date character varying(10)
+);
+
+
+ALTER TABLE public.game OWNER TO postgres;
+
+--
+-- Name: genre; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.genre (
+    genre_id integer NOT NULL,
+    genre_name character varying(12)
+);
+
+
+ALTER TABLE public.genre OWNER TO postgres;
+
+--
+-- Name: owns; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.owns (
+    consumer_id uuid NOT NULL,
+    game_id integer NOT NULL
+);
+
+
+ALTER TABLE public.owns OWNER TO postgres;
+
+--
+-- Name: participates_in; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.participates_in (
+    sale_id integer NOT NULL,
+    game_id integer NOT NULL
+);
+
+
+ALTER TABLE public.participates_in OWNER TO postgres;
+
+--
+-- Name: pc_game; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.pc_game (
+    game_id integer NOT NULL,
+    operating_system character varying(10)
+);
+
+
+ALTER TABLE public.pc_game OWNER TO postgres;
+
+--
+-- Name: sale; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.sale (
+    sale_id integer NOT NULL,
+    percent_off integer NOT NULL
+);
+
+
+ALTER TABLE public.sale OWNER TO postgres;
+
+--
+-- Name: type_of; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.type_of (
+    game_id integer NOT NULL,
+    genre_id integer NOT NULL
+);
+
+
+ALTER TABLE public.type_of OWNER TO postgres;
+
+--
+-- Name: vr_game; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.vr_game (
+    game_id integer NOT NULL,
+    play_area character varying(10),
+    headset_type character varying(20),
+    controller_type character varying(30)
+);
+
+
+ALTER TABLE public.vr_game OWNER TO postgres;
+
+--
+-- Data for Name: consumer; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.consumer (consumer_id, username, consumer_password, wallet) FROM stdin;
+9eb72a89-caf1-4cc6-9eb5-d8fac1b33271	Thomas	securePassword384	18
+77787168-8868-4b39-95ed-a1c6fec2d30a	Franklin	p@ssw0rd!!	4.23
+98cb1875-1f7e-42f5-8008-e3a1b296715f	Harold	us3rn@m3!	10.18
+01132e70-6db4-4bbb-91aa-63fff2857944	Thoma	$2b$10$cOoqizQQTJxD8RpQEuKaU.2fuf0Xb7KVS5I68zL8roGbr5KALUx92	0
+c5ef4ee1-f4cf-42f9-8901-9f9276a9e73b	Thom	$2b$10$ecBSn0Zb.WJnHA1f5Hxq7.MNELmlEjTDq/QWLcSFvmnKr9YL0Sru2	0
+196921e3-7005-40cf-a74b-5f7fd3e87b07	Tho	$2b$10$Se0mmyQE/8xjaB9D/D6e5u5r/mEyz9vXIUepEy8v91G0Klq8YKfLa	0
+733de098-970e-4cce-a556-4d55d12cfc55	hmm	$2b$10$2PsZguDKQnp9LXWwWTnF/.34ns7h5DnIqD6ZY3EjNe.5wPngLLZcm	0
+6399b900-1ba3-4e3f-9ada-1e32d6a071e6	lol	$2b$10$JCGyfmA2IB15VQsMfrj7F.wWvsmyWZUKbbKD1HpPZFvumRx0YO7ty	0
+ea3e150c-92f4-4533-bcd5-f8ddc8403fbf	lolj	$2b$10$9HYW5bQ.w/K36BZh3WXFg.oV/x8RtRHK/H1Q4QMvUeXUQvIpfMGOm	0
+a6d1fb36-9233-4bb9-a9ea-5524b58cbba0	test	$2b$10$EFyOhKZSkJfW8fO91tRVTO38QtZV4hdY/Uh9VXywzdpObVNEpSwKi	0
+\.
+
+
+--
+-- Data for Name: created; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.created (game_id, studio_id) FROM stdin;
+0	0
+1	2
+2	1
+3	4
+4	3
+5	0
+6	3
+7	2
+8	1
+9	4
+10	0
+11	4
+12	3
+13	1
+14	2
+15	2
+16	0
+\.
+
+
+--
+-- Data for Name: development_studio; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.development_studio (studio_id, studio_name) FROM stdin;
+0	Microsoft Game Studios
+1	Activision Blizzard
+2	Electronic Arts
+3	Nintendo
+4	Valve
+\.
+
+
+--
+-- Data for Name: game; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.game (game_id, title, rating, base_price, release_date) FROM stdin;
+0	Assassin’s Creed	9	30	01/01/2000
+1	Dark Souls	9.5	30	01/01/2001
+2	Tomb Raider	8	60	02/02/2002
+3	LEGO Star Wars	10	30	03/03/2003
+4	Uncharted	9.5	60	04/04/2004
+5	Sonic Mania	9	20	05/05/2005
+6	Bloodborne	10	60	06/06/2006
+7	Call of Duty	9	60	07/07/2007
+8	Battlefield	6.4	15	08/08/2008
+9	Batman: Arkham City	9.3	45	09/09/2009
+10	Pokemon	10	20	10/10/2010
+11	Super Smash Bros.	10	60	11/11/2011
+12	Fire Emblem	8.5	30	12/12/2012
+13	CS:GO	7	0	01/13/2013
+14	The Legend of Zelda	10	60	02/14/2014
+15	VRChat	7.8	30	03/15/2015
+16	Valorant	8	0	06/02/2020
+\.
+
+
+--
+-- Data for Name: genre; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.genre (genre_id, genre_name) FROM stdin;
+0	RPG
+1	Action
+2	Adventure
+3	Platformer
+4	FPS
+\.
+
+
+--
+-- Data for Name: owns; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.owns (consumer_id, game_id) FROM stdin;
+9eb72a89-caf1-4cc6-9eb5-d8fac1b33271	4
+9eb72a89-caf1-4cc6-9eb5-d8fac1b33271	2
+9eb72a89-caf1-4cc6-9eb5-d8fac1b33271	8
+77787168-8868-4b39-95ed-a1c6fec2d30a	12
+77787168-8868-4b39-95ed-a1c6fec2d30a	3
+77787168-8868-4b39-95ed-a1c6fec2d30a	7
+98cb1875-1f7e-42f5-8008-e3a1b296715f	6
+98cb1875-1f7e-42f5-8008-e3a1b296715f	2
+196921e3-7005-40cf-a74b-5f7fd3e87b07	7
+196921e3-7005-40cf-a74b-5f7fd3e87b07	11
+196921e3-7005-40cf-a74b-5f7fd3e87b07	4
+196921e3-7005-40cf-a74b-5f7fd3e87b07	16
+196921e3-7005-40cf-a74b-5f7fd3e87b07	15
+196921e3-7005-40cf-a74b-5f7fd3e87b07	3
+196921e3-7005-40cf-a74b-5f7fd3e87b07	5
+196921e3-7005-40cf-a74b-5f7fd3e87b07	0
+196921e3-7005-40cf-a74b-5f7fd3e87b07	1
+196921e3-7005-40cf-a74b-5f7fd3e87b07	2
+196921e3-7005-40cf-a74b-5f7fd3e87b07	14
+\.
+
+
+--
+-- Data for Name: participates_in; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.participates_in (sale_id, game_id) FROM stdin;
+0	2
+1	4
+2	6
+3	8
+\.
+
+
+--
+-- Data for Name: pc_game; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.pc_game (game_id, operating_system) FROM stdin;
+13	Windows
+5	Mac
+\.
+
+
+--
+-- Data for Name: sale; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.sale (sale_id, percent_off) FROM stdin;
+0	20
+1	40
+2	60
+3	80
+\.
+
+
+--
+-- Data for Name: type_of; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.type_of (game_id, genre_id) FROM stdin;
+0	1
+1	2
+2	4
+3	0
+4	3
+5	0
+6	3
+7	2
+8	4
+9	3
+10	1
+11	4
+12	2
+13	3
+14	0
+15	0
+16	4
+\.
+
+
+--
+-- Data for Name: vr_game; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.vr_game (game_id, play_area, headset_type, controller_type) FROM stdin;
+15	10	HTC Vive	Tracked Motion Controllers
+\.
+
+
+--
+-- Name: consumer consumer_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.consumer
+    ADD CONSTRAINT consumer_pkey PRIMARY KEY (consumer_id);
+
+
+--
+-- Name: consumer consumer_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.consumer
+    ADD CONSTRAINT consumer_username_key UNIQUE (username);
+
+
+--
+-- Name: created created_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.created
+    ADD CONSTRAINT created_pkey PRIMARY KEY (game_id);
+
+
+--
+-- Name: development_studio development_studio_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.development_studio
+    ADD CONSTRAINT development_studio_pkey PRIMARY KEY (studio_id);
+
+
+--
+-- Name: game game_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.game
+    ADD CONSTRAINT game_pkey PRIMARY KEY (game_id);
+
+
+--
+-- Name: genre genre_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.genre
+    ADD CONSTRAINT genre_pkey PRIMARY KEY (genre_id);
+
+
+--
+-- Name: owns owns_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.owns
+    ADD CONSTRAINT owns_pkey PRIMARY KEY (consumer_id, game_id);
+
+
+--
+-- Name: participates_in participates_in_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.participates_in
+    ADD CONSTRAINT participates_in_pkey PRIMARY KEY (sale_id, game_id);
+
+
+--
+-- Name: pc_game pc_game_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pc_game
+    ADD CONSTRAINT pc_game_pkey PRIMARY KEY (game_id);
+
+
+--
+-- Name: sale sale_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.sale
+    ADD CONSTRAINT sale_pkey PRIMARY KEY (sale_id);
+
+
+--
+-- Name: type_of type_of_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.type_of
+    ADD CONSTRAINT type_of_pkey PRIMARY KEY (game_id, genre_id);
+
+
+--
+-- Name: vr_game vr_game_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.vr_game
+    ADD CONSTRAINT vr_game_pkey PRIMARY KEY (game_id);
+
+
+--
+-- Name: created created_game_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.created
+    ADD CONSTRAINT created_game_id_fkey FOREIGN KEY (game_id) REFERENCES public.game(game_id) ON DELETE CASCADE;
+
+
+--
+-- Name: created created_studio_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.created
+    ADD CONSTRAINT created_studio_id_fkey FOREIGN KEY (studio_id) REFERENCES public.development_studio(studio_id) ON DELETE CASCADE;
+
+
+--
+-- Name: owns owns_consumer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.owns
+    ADD CONSTRAINT owns_consumer_id_fkey FOREIGN KEY (consumer_id) REFERENCES public.consumer(consumer_id) ON DELETE CASCADE;
+
+
+--
+-- Name: owns owns_game_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.owns
+    ADD CONSTRAINT owns_game_id_fkey FOREIGN KEY (game_id) REFERENCES public.game(game_id) ON DELETE CASCADE;
+
+
+--
+-- Name: participates_in participates_in_game_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.participates_in
+    ADD CONSTRAINT participates_in_game_id_fkey FOREIGN KEY (game_id) REFERENCES public.game(game_id) ON DELETE CASCADE;
+
+
+--
+-- Name: participates_in participates_in_sale_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.participates_in
+    ADD CONSTRAINT participates_in_sale_id_fkey FOREIGN KEY (sale_id) REFERENCES public.sale(sale_id) ON DELETE CASCADE;
+
+
+--
+-- Name: pc_game pc_game_game_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.pc_game
+    ADD CONSTRAINT pc_game_game_id_fkey FOREIGN KEY (game_id) REFERENCES public.game(game_id);
+
+
+--
+-- Name: type_of type_of_game_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.type_of
+    ADD CONSTRAINT type_of_game_id_fkey FOREIGN KEY (game_id) REFERENCES public.game(game_id) ON DELETE CASCADE;
+
+
+--
+-- Name: type_of type_of_genre_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.type_of
+    ADD CONSTRAINT type_of_genre_id_fkey FOREIGN KEY (genre_id) REFERENCES public.genre(genre_id) ON DELETE CASCADE;
+
+
+--
+-- Name: vr_game vr_game_game_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.vr_game
+    ADD CONSTRAINT vr_game_game_id_fkey FOREIGN KEY (game_id) REFERENCES public.game(game_id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
