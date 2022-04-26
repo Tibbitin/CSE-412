@@ -7,8 +7,8 @@ import './Home.css';
 
 function Home() {
   const [title, setTitle] = useState("");
-  const [rating, setRating] = useState("");
-  const [price, setPrice] = useState("");
+  const [rating, setRating] = useState("0");
+  const [price, setPrice] = useState("0");
   const [games, setGames] = useState([]);
   const [genres, setGenres] = useState([]);
   const [genre, setGenre] = useState("All");
@@ -77,9 +77,9 @@ function Home() {
           <label>Title: {" "}</label>
           <input name="titleVal" type = "text" onChange={e => setTitle(e.target.value)} placeholder="Search..." />
           <label>Minimum Rating:</label>
-          <input type="number" required step=".1" name="ratingVal" id="ratingVal" onChange={e => setRating(e.target.value)}></input>          
+          <input type="number" step="0.5" name="ratingVal" id="ratingVal" onChange={e => setRating(e.target.value) } placeholder="0"></input>          
           <label>Minimum Price:</label>
-          <input type="number" required step="5" name="priceVal" id="priceVal" onChange={e => setPrice(e.target.value)}></input>
+          <input type="number" step="5" name="priceVal" id="priceVal" onChange={e => setPrice(e.target.value)} placeholder="0"></input>
           <select name="genreVal" size={genres.size + 1} onChange={e => setGenre(e.target.value)}>  
               <option value="All">All</option>
             {genres.map(genre => (

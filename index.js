@@ -60,7 +60,7 @@ app.get("/home", async(req, res) => {
 //Searching route
 app.get("/search", async (req, res) => {
     try {
-        const { title, rating, genre} = req.query;
+        const { title, rating, genre, price} = req.query;
         console.log(rating);
         var game_title;
         if(genre == "All") {
