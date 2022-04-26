@@ -6,7 +6,6 @@ module.exports = async(req, res, next) => {
         const jwtToken = req.header("token");
         const verifiedInfo = jwt.verify(jwtToken, process.env.jwtKey);
         req.user = verifiedInfo.consumer;
-
         next();
     } catch (error) {
         console.error(error.message);

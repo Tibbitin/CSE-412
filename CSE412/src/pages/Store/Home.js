@@ -38,6 +38,23 @@ function Home() {
       console.error(error.message);
     }
   }
+
+  async function addGame(gid) {
+    console.log(gid);
+    try {
+      // const body = {gid}
+      const response = await fetch("http://localhost:5000/add/?game_id=" + gid.game_id, {
+        method: "POST", 
+        headers: { token: localStorage.token } 
+        // body: JSON.stringify(body)
+      });
+      const parseResponse = await response.json();
+      console.log(parseResponse);
+      
+    } catch (error) {
+      console.error(error.message);
+    }
+  }
   
   useEffect(() => {
     getAllGames()
@@ -73,6 +90,9 @@ function Home() {
                 <td>{game.rating}</td>
                 <td>{game.base_price}</td>
                 <td>{game.release_date}</td>
+                <td>
+                  <button onClick={() => addGame(game)}>Add Game</button>
+                </td>
               </tr>
             ))
 
