@@ -3,10 +3,12 @@ import 'bootstrap/dist/css/bootstrap.css'
 import Navibar from '../../components/navbarcomp/Navibar'
 import {Button, Form, FormGroup, Label, Input} from 'reactstrap'
 import React, {Fragment, useState} from 'react'
+import { use } from 'bcrypt/promises';
 
 const Signin = (/*{setAuth}*/) => {
   const [username, setUsername] = useState("");
   const [consumer_password, setConsumer_Password] = useState("");
+  const [checkPassword, setCheckPassword] = useState("");
   const onSubmitButton = async(e) => {
     
     e.preventDefault();
@@ -23,12 +25,25 @@ const Signin = (/*{setAuth}*/) => {
       {
         localStorage.setItem('token', parseResponse.token);
         window.location.href='/games';
+        setCheckPassword("")
+      }
+      else
+      {
+        console.log("Please");
+        setCheckPassword("Fail");
       }
     }
     catch (error) {
       console.error(error.message)
+      // setCheckPassword("FAIL");
     }
   };
+
+  if(checkPassword === "Fail")
+  {
+    alert("Username or Password is incorrect");
+    setCheckPassword("");
+  }
 
   return (
     <div className="signinpage">

@@ -46,11 +46,15 @@ router.post("/login", validInfo, async(req, res) => {
         
         //3. check if incoming password is the same as the database password
         const validPassword = await bcrypt.compare(consumer_password, consumer.rows[0].consumer_password);
-
-        //4. give them the jwt token
-        const token = jwtSignature(consumer.rows[0].consumer_id);
-        res.json({ token });
-
+        if(validPassword)
+        {
+            //4. give them the jwt token
+            const token = jwtSignature(consumer.rows[0].consumer_id);
+            res.json({ token });
+        }
+        else{
+            return res.status(401).json("Username or Password is incorrect");
+        }
     } catch (error) {
         console.error(error.message);
         res.status(500).send("There was an issue connecting with the server");
