@@ -14,3 +14,4 @@ router.get("/", authorization, async(req, res) => {
         res.status(500).json("There was an issue accessing the server");
     }
 })
+

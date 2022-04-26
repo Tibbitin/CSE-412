@@ -1,7 +1,8 @@
 const express = require("express");
 const app = express();
-const cors = require("cors")
-const pool = require("./db")
+const cors = require("cors");
+const pool = require("./db");
+const authorization = require("./authorization");
 
 //middleware
 app.use(cors());
@@ -57,12 +58,38 @@ app.get("/home", async(req, res) => {
     }
 })
 
+
+// add a game to a user's library
+// app.post("/auth/home/:game_id",  require("./jwtAuth"), async(req,res) => {
+//     try {
+//         //req.user has the payload
+//         const {game_id} = req.params;
+//         console.log(req.params);
+//         const game = await pool.query("INSERT INTO owns(consumer_id, game_id) VALUES($1, $2);", [req.user, game_id]);
+//         res.json(game.rows);
+//     } catch (error) {
+//         console.error(error.message);
+//         res.status(500).json("There was an issue accessing the server");
+//     }
+// })
+
 //Searching route
 app.get("/search", async (req, res) => {
     try {
-        const { title } = req.query;
-        const game_title = await pool.query("SELECT * FROM game WHERE title || ' ' ILIKE $1", ['%' + title + '%']);
+        const { title, rating, genre, price} = req.query;
+        console.log(rating);
+        var game_title;
+        if(genre == "All") {
+            game_title = await pool.query("SELECT * FROM game WHERE title || ' ' ILIKE $1 AND rating >= " + rating + "AND base_price >= " + price, ['%' + title + '%']);
+        }
+        else {
+            console.log(genre);
+            game_title = await pool.query("SELECT * FROM game, genre, type_of WHERE title || ' ' ILIKE $1 AND rating >= " + rating + "AND base_price >= " + price + "AND genre.genre_id = type_of.genre_id AND game.game_id = type_of.game_id AND genre_name = '" + genre + "'", ['%' + title + '%']);
+        }
 
+        // const { title, rating, price } = req.query;
+        // console.log(price);
+        // const game_title = await pool.query("SELECT * FROM game WHERE title || ' ' ILIKE $1 AND rating >= " + rating + "AND base_price >= " + price, ['%' + title + '%']);
         res.json(game_title.rows)
     } catch (error) {
         console.error(error.message);
@@ -70,7 +97,7 @@ app.get("/search", async (req, res) => {
 })
 
 //get a specific game (open to a specific game web page)
-app.get("/games/:id", async (req, res) => {
+app.get("/auth/games/:id", async (req, res) => {
     try {
         const { id } = req.params;
         const game = await pool.query("SELECT * FROM game WHERE game_id = $1", [id]);
@@ -88,6 +115,16 @@ app.get("/games/sales/:sale_id", async (req, res) => {
         res.json(games_on_sale.rows);
     } catch (error) {
         console.error(error.message);
+    }
+})
+
+//send the list of genre names
+app.get("/genres", async (req, res) => {
+    try {
+        const genre = await pool.query("SELECT genre_name FROM genre");
+        res.json(genre.rows);
+    } catch (error) {
+        console.error(error.message)
     }
 })
 
@@ -159,8 +196,8 @@ app.get("/games/rating/:rating", async (req, res) => {
 //     }
 // })
 
-// //adding a game from a consumer's library
-// app.post("/consumer/:id/library", async(req, res) => {
+// //adding a game to a consumer's library
+// app.post("/games", async(req, res) => {
 //     try {
 //         const { title } = req.params;
 //         const deletedGame = await pool.query("DELETE FROM game WHERE title = $1", [title])
@@ -173,6 +210,10 @@ app.get("/games/rating/:rating", async (req, res) => {
 
 //dashboard route
 app.use("/games", require("./userDashboard"));
+
+app.use("/add", require("./addGame"));
+app.use("/delete", require("./deleteGame"));
+
 
 app.listen(5000, () => {
     console.log("server has started on port 5000")

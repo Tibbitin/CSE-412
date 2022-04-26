@@ -14,7 +14,7 @@ router.post("/register", validInfo, async(req, res) => {
         const consumer = await pool.query("SELECT * FROM consumer WHERE username = $1", [username]);
         
         if(consumer.rows.length > 0) 
-            return res.status(403).send("This user is already registerd")
+            return res.status(403).send("This user is already registered")
 
         //3. Bcrypt the consumer password
         const salt = await bcrypt.genSalt(10);
