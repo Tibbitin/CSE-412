@@ -74,12 +74,14 @@ If the user does not have an account, they are able to click the register link i
 
 ### Dashboard:
 On the dashboard, the user can view all games that are in their wishlist. In order to remove a game from your wishlist, press the "Delete Game" button and it will be removed from your list.
-![dashboardScreen](https://user-images.githubusercontent.com/78890952/165196406-6449f7ca-8420-4a01-a400-e92a317228ce.JPG)
+![dashboardScreen (1)](https://user-images.githubusercontent.com/78890952/165205068-78c054a0-dce8-41a7-93ef-583656e5cade.JPG)
+
 
 
 ### Store:
 The store page has all the games available in the store. There is a search bar at the top of the page that allows you to search for a specific game based on the title. In order to filter the list of games based on genre, rating, or price, you can use the buttons on the top and press enter. The games that match the criteria will remain on the page. In order to add a game to your wishlist, you simply have to press the “Add Game” button beside the game, which will add a copy of it to the “My Games” page.
-![homePageScreen](https://user-images.githubusercontent.com/78890952/165196423-beb7bb0d-f07c-4e76-8b48-40f5cf55f45d.JPG)
+![homePageScreen (1)](https://user-images.githubusercontent.com/78890952/165205084-d71120bb-d0e5-4512-9292-df104b4a452f.JPG)
+
 
 
 ### Navigation bar:
