@@ -103,8 +103,8 @@ function Home() {
           <label>Minimum Price:</label>
           <input type="number" step="5" name="priceVal" id="priceVal" onChange={e => setPrice(e.target.value)} placeholder="0"></input>
           </Col>       
-          <Col xs = "auto">
-          <select style = {{marginTop: 25 }} name="genreVal" size={genres.size + 1} onChange={e => setGenre(e.target.value)}>  
+          <Col xs = "auto"> <label>Genre:</label>
+          <select name="genreVal" size={genres.size + 1} onChange={e => setGenre(e.target.value)}>  
               <option value="All">All</option>
             {genres.map(genre => (
               <option value={genre.genre_name}>{genre.genre_name}</option>
@@ -112,7 +112,7 @@ function Home() {
           </select>
           </Col>
           <Col xs = {8}>
-          <Button style = {{marginTop: 25 }}className='btn-md btn-dark btn-block' type="submit">Enter</Button>
+          <Button style = {{marginTop: 25 }} className='btn-md btn-dark btn-block' type="submit">Enter</Button>
           </Col>
           </Row>
         </Form>
@@ -133,7 +133,7 @@ function Home() {
                 <td>{game.base_price}</td>
                 <td>{game.release_date}</td>
                 <td>
-                  <button onClick={() => addGame(game)}>Add Game</button>
+                  <button className='btn-md btn-dark btn-block' onClick={() => addGame(game)}>Add Game</button>
                 </td>
               </tr>
             ))

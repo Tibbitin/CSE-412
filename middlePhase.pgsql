@@ -237,3 +237,4 @@ INSERT INTO owns(consumer_id, game_id) VALUES('2afda526-8e90-4e4d-8972-ecd93a1bf
 INSERT INTO owns(consumer_id, game_id) VALUES('2afda526-8e90-4e4d-8972-ecd93a1bf50c', 7);
 INSERT INTO owns(consumer_id, game_id) VALUES('296dd405-c269-4dc6-95c3-f3c596450c55', 6);
 INSERT INTO owns(consumer_id, game_id) VALUES('296dd405-c269-4dc6-95c3-f3c596450c55', 2); 
+

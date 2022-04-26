@@ -212,6 +212,8 @@ app.get("/games/rating/:rating", async (req, res) => {
 app.use("/games", require("./userDashboard"));
 
 app.use("/add", require("./addGame"));
+app.use("/delete", require("./deleteGame"));
+
 
 app.listen(5000, () => {
     console.log("server has started on port 5000")
